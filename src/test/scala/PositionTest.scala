@@ -2,51 +2,51 @@ import org.scalatest.{FunSuite, Matchers}
 
 final class PositionTest extends FunSuite with Matchers {
 
-  test("Move facing north") {
+  test("Moving north should increment the y coordinate") {
     Position(3,4,North).move shouldBe Position(3,5,North)
   }
 
-  test("Move facing east") {
+  test("Moving east should increment the x coordinate") {
     Position(3,4,East).move shouldBe Position(4,4, East)
   }
 
-  test("Move facing west") {
+  test("Moving west should decrement the x coordinate") {
     Position(3,4,West).move shouldBe Position(2,4,West)
   }
 
-  test("Move facing south") {
+  test("Moving south should decrement the y coordinate") {
     Position(3,4,South).move shouldBe Position(3,3,South)
   }
 
-  test("Turn left facing north") {
+  test("Should face west after turning left from facing north") {
     Position(3,4,North).left shouldBe Position(3,4,West)
   }
 
-  test("Turn left facing east") {
+  test("Should face north after turning left from facing east") {
     Position(3,4,East).left shouldBe Position(3,4,North)
   }
 
-  test("Turn left facing west") {
+  test("Should face south after turning left from facing west") {
     Position(3,4,West).left shouldBe Position(3,4,South)
   }
 
-  test("Turn left facing south") {
-    Position(3,4,South).right shouldBe Position(3,4,East)
+  test("Should face east after turning left from facing south") {
+    Position(3,4,South).left shouldBe Position(3,4,East)
   }
 
-  test("Turn right facing north") {
+  test("Should face east after turning right from facing north") {
     Position(3,4,North).right shouldBe Position(3,4,East)
   }
 
-  test("Turn right facing east") {
+  test("Should face south after turning right from facing east") {
     Position(3,4,East).right shouldBe Position(3,4,South)
   }
 
-  test("Turn right facing west") {
+  test("Should face north after turning right from facing west") {
     Position(3,4,West).right shouldBe Position(3,4,North)
   }
 
-  test("Turn right facing south") {
+  test("Should face west after turning right from facing south") {
     Position(3,4,South).right shouldBe Position(3,4,West)
   }
 }
