@@ -40,5 +40,6 @@ final class FacingTest extends FunSuite with Matchers {
 
   test("Interpret invalid facing values") {
     Facing.interpreter.isDefinedAt("UP") shouldBe false
+    Facing.interpreter.isDefinedAt("") shouldBe false
   }
 }

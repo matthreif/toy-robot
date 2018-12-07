@@ -25,5 +25,10 @@ case object East extends Facing {
 }
 
 object Facing {
-  def interpreter: PartialFunction[String, Facing] = ???
+  def interpreter: PartialFunction[String, Facing] = {
+    case f if f.equalsIgnoreCase("WEST") => West
+    case f if f.equalsIgnoreCase("EAST") => East
+    case f if f.equalsIgnoreCase("SOUTH") => South
+    case f if f.equalsIgnoreCase("NORTH") => North
+  }
 }
