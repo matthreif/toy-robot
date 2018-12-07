@@ -23,3 +23,7 @@ case object East extends Facing {
   override def left: Facing = North
   override def right: Facing = South
 }
+
+object Facing {
+  def interpreter: PartialFunction[String, Facing] = ???
+}
