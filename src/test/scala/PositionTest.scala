@@ -1,4 +1,5 @@
 import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.OptionValues._
 
 final class PositionTest extends FunSuite with Matchers {
 
@@ -48,5 +49,35 @@ final class PositionTest extends FunSuite with Matchers {
 
   test("Should face west after turning right from facing south") {
     Position(3,4,South).right shouldBe Position(3,4,West)
+  }
+
+  test("Interpret integer numbers") {
+    Position.toInt("1").value shouldBe 1
+    Position.toInt("0").value shouldBe 0
+    Position.toInt("-1").value shouldBe -1
+    Position.toInt("foo") shouldBe None
+    Position.toInt("") shouldBe None
+  }
+
+  test("Interpret facing directions") {
+    Position.toFacing("Up") shouldBe None
+    Position.toFacing("") shouldBe None
+    Position.toFacing("North").value shouldBe North
+    Position.toFacing("SOUTH").value shouldBe South
+    Position.toFacing("wEsT").value shouldBe West
+    Position.toFacing("east").value shouldBe East
+  }
+
+  test("Interpret command line position specification") {
+    Position.toPosition("bla", "1", "North") shouldBe None
+    Position.interpreter("1,2,South") shouldBe Position(1,2,South)
+    Position.interpreter("-19,-99999999,nOrTh") shouldBe Position(-19,-99999999,North)
+    Position.interpreter.isDefinedAt("bla,2,South") shouldBe false
+    Position.interpreter.isDefinedAt("1,bla,South") shouldBe false
+    Position.interpreter.isDefinedAt("1,2,Down") shouldBe false
+    Position.interpreter.isDefinedAt("1,2") shouldBe false
+    Position.interpreter.isDefinedAt("1") shouldBe false
+    Position.interpreter.isDefinedAt("") shouldBe false
+    Position.interpreter.isDefinedAt("bla,bla,bla") shouldBe false
   }
 }
