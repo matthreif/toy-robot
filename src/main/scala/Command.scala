@@ -13,9 +13,9 @@ object Command {
 
     commandLine.split(" ").map(_.trim) match {
       case Array(c, parameters) if c.equalsIgnoreCase("PLACE") =>
-        parameters.split(",").map(_.trim) match {
-          case Array(x,y,f) => ???
-          case _ => Invalid
+        Position.interpreter.lift(parameters) match {
+          case Some(pos) => Place(pos)
+          case None => Invalid
         }
       case Array(c) if c.equalsIgnoreCase("MOVE") => Move
       case Array(c) if c.equalsIgnoreCase("LEFT") => Left
@@ -25,4 +25,3 @@ object Command {
     }
   }
 }
-
