@@ -1,3 +1,10 @@
+object RobotState {
+  def createFrom(tableTop: TableTop, position: Position): RobotState = position match {
+    case pos if tableTop.isOn(pos) => RobotState(tableTop, Some(pos))
+    case _ => RobotState(tableTop, None)
+  }
+}
+
 case class RobotState(tableTop: TableTop, maybePosition: Option[Position]) {
   def place(position: Position): RobotState = {
     if (tableTop.isOn(position))
@@ -11,5 +18,9 @@ case class RobotState(tableTop: TableTop, maybePosition: Option[Position]) {
       case _ => this.copy(maybePosition = None)
     })
   }
-  def report: String = ???
+  def report: String = {
+    maybePosition.fold("NOT ON TABLE TOP") { pos =>
+      s"X = ${pos.x}, Y = ${pos.y}, FACING = ${pos.f}"
+    }
+  }
 }
