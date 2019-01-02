@@ -30,4 +30,20 @@ final class RobotStateTest extends FunSuite with Matchers {
 
     after shouldBe RobotState(testTableTop, None)
   }
+
+  test("Move robot within table top limits") {
+    val before = RobotState(testTableTop, Some(Position(1, testTableTop.depth - 2, North)))
+
+    val after = before.move
+
+    after shouldBe RobotState(testTableTop, Some(Position(1, testTableTop.depth - 1, North)))
+  }
+
+  test("Move robot off the table top edge") {
+    val before = RobotState(testTableTop, Some(Position(1, testTableTop.depth - 1, North)))
+
+    val after = before.move
+
+    after shouldBe RobotState(testTableTop, None)
+  }
 }
