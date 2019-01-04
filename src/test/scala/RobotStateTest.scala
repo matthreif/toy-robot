@@ -60,7 +60,7 @@ final class RobotStateTest extends FunSuite with Matchers {
 
     val report = state.report
 
-    report shouldBe s"X = ${positionOnTableTop.x}, Y = ${positionOnTableTop.y}, FACING = ${positionOnTableTop.f}"
+    report shouldBe s"${positionOnTableTop.x},${positionOnTableTop.y},${positionOnTableTop.f}"
   }
 
   test("Report state if robot is off the table top") {

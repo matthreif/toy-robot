@@ -20,7 +20,7 @@ case class RobotState(tableTop: TableTop, maybePosition: Option[Position]) {
   }
   def report: String = {
     maybePosition.fold("NOT ON TABLE TOP") { pos =>
-      s"X = ${pos.x}, Y = ${pos.y}, FACING = ${pos.f}"
+      s"${pos.x},${pos.y},${pos.f}"
     }
   }
 }
