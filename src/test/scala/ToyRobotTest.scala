@@ -8,7 +8,7 @@ case class TestStdinIterator(values: Array[String]) extends Iterator[String] {
 
   var index = 0
 
-  override def hasNext: Boolean = { println(s"hasNext returns ${index < values.length}."); index < values.length }
+  override def hasNext: Boolean = index < values.length
 
   override def next(): String = {
     val result = values(index)
@@ -97,6 +97,7 @@ final class ToyRobotTest extends FunSuite {
       .expectNext("2,3,West")
       .expectNext("")
       .expectNext("2,3,North")
+      .expectComplete()
   }
 
   test("Spin robot anti-clockwise") {
@@ -111,6 +112,7 @@ final class ToyRobotTest extends FunSuite {
       .expectNext("2,3,East")
       .expectNext("")
       .expectNext("2,3,North")
+      .expectComplete()
   }
 
   test("Move robot in a circle and ensure it ends up in the original position") {
@@ -125,10 +127,12 @@ final class ToyRobotTest extends FunSuite {
       .expectNext("")
       .expectNext("")
       .expectNext("2,3,North")
+      .expectComplete()
   }
 
   test("Invalid commands") {
     commandLineSimulator(Array("hello", "", "place 1 , 2, North", "place 1 2 North", "place 1,2,Down"))
       .expectNext("Invalid command", "Invalid command", "Invalid command", "Invalid command", "Invalid command")
+      .expectComplete()
   }
 }
